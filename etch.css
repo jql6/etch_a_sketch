@@ -1,0 +1,35 @@
+/* Stylesheet for etch a sketch project */
+
+body{
+    max-width: 800px;
+    align-items: center;
+}
+
+body > * {
+    margin: auto;
+}
+
+.grid-container{
+    display: grid;
+    grid-gap: 3px;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    max-width: 650px;
+    padding: 10px;
+}
+
+#reset-container{
+    padding: 10px;
+    text-align: center;
+}
+
+.square-div{
+    background-color: #ddd;
+    padding-top: 100%; /* This turns it into a square */
+    transition: 0.2s;
+    width: 100%; /* This makes it take up the space in the grid */
+}
+
+.square-div:hover{
+    background-color:red;
+    transition: 0.2s;
+}
