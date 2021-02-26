@@ -9,19 +9,71 @@
   <div id="reset-container">
     <button id="reset">Reset</button>
   </div>
-  
+
   <div class="grid-container" id="canvas"></div>
 
   <script>
-    // Make a loop that adds 16 square divs to the div with the id "canvas"
-    const canvas1 = document.querySelector("div#canvas");
-
-    const pixel1 = document.createElement('div');
-    pixel1.classList.add('square-div');
-
-    for (let i = 0; i < 16; i++) {
-      canvas1.appendChild(pixel1.cloneNode(true));
+    // Write code that removes all divs that were added
+    function clearElements(parentElement){
+      // If the parent element has children nodes
+      while (parentElement.firstChild) {
+        // Remove a child node
+        parentElement.removeChild(parentElement.lastChild);
+      }
     }
+
+    // Make a function that initializes the canvas
+    function initializeCanvas(sideNumber){
+      // Set up the grid template for the canvas
+      const canvas1 = document.querySelector("div#canvas");
+      canvas1.style.setProperty('--grid-rows', sideNumber);
+      canvas1.style.setProperty('--grid-columns', sideNumber);
+
+      clearElements(canvas1);
+
+      const pixel1 = document.createElement('div');
+      pixel1.classList.add('square-div');
+
+      for (let i = 0; i < sideNumber * sideNumber; i++) {
+        canvas1.appendChild(pixel1.cloneNode(true));
+      }
+    }
+
+    // Actions to do when user presses the reset button
+    function resetCanvas() {
+      let sideNumber = prompt(`How many squares would you like per side?`);
+
+      if (sideNumber > 100){
+        alert(`Error! The number of squares chosen must be 100 or smaller.`);
+        return;
+      } else if (sideNumber <= 0) {
+        alert(`Error, the number of squares chosen must be positive!`);
+        return;
+      }
+
+      initializeCanvas(sideNumber);
+    }
+
+    // Function for changing background color of element to black
+    function changeToBlack(event) {
+      event.target.style.backgroundColor = "black";
+    }
+
+    // Prompt user for side number
+    // Add event listener for the reset button
+    let resetButton = document.querySelector("button#reset");
+    resetButton.addEventListener("click", resetCanvas);
+
+    // Add event listeners for the square divs
+    // Select the buttons with the player-selection class
+    const squareDivs = document.querySelectorAll("div.square-div");
+    // For every button, add an event listener that prints message when clicked
+    squareDivs.forEach(square =>
+        square.addEventListener("mouseclick", changeToBlack));
+
+    initializeCanvas(16);
+
+   
   </script>
 </body>
 </html>
